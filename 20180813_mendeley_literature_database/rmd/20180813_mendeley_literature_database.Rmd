@@ -1,0 +1,40 @@
+---
+title: "Mendeley Literatur Datenbank"
+author: "Peter von Rohr"
+date: "8/13/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(hook_convert_odg = rmddochelper::hook_convert_odg)
+```
+
+## Erklärung
+Dieses Dokument enthält ein paar Hinweise für den Umgang mit der gemeinsamen Mendeley Literatur Datenbank.
+
+
+## Einleitung
+Wissenschaftliche Publikationen haben einen grossen Stellenwert in unserer alltäglichen Arbeit. Somit sammeln sich zwangsläufig eine beträchtliche Anzahl von Artikeln an, welche irgendwie verwaltet werden müssen. Diese Administration kann auf verschiedene Art und Weise bewältigt werden. 
+
+Aus naheliegenden Gründen erscheint es sinnvoll, eine gemeinsam nutzbare Platform für die Verwaltung aller Publikationen zu verwenden. Solche Platformen werden heute als __Reference Manager__ bezeichnet und davon gibt es eine ganze Reihe. Die ETH-Bibliothek hat einen Vergleich unter http://www.library.ethz.ch/en/Media/Files/Literaturverwaltungsprogramme-im-Vergleich verfügbar gemacht.  Aufgrund der Resultate dieses Vergleichs erscheint mir `Mendeley` als eine brauchbare Lösung. Der Support für dieses Tool an der ETH und eine grosszügige Ausstattung mit Speicherplatz auf der Online-Version aufgrund unserer Anbindung an die ETH sind zusätzliche Argumente für den Einsatz von Mendeley. Der folgende Abschnitt enthält eine kurze Anleitung für die grundlegende Verwendung von Mendeley.
+
+
+## Mendeley
+Aktuelle Reference Manager funktionieren alle mit zwei Versionen. 
+
+1. Cloud-basiert
+2. Offline
+
+
+### Cloud-basiert
+Bei der cloud-basierten Version wird mit Hilfe des Browsers auf die zu verwaltenden Publikationen zugegriffen. Die Publikationen sind dabei auf einem Server des Anbieters des Reference Managers gespeichert. Bei Mendeley liegt dieser Zugang auf https://www.mendeley.com/. Dort muss man sich mit einer E-Mailadresse registrieren und hat dann gewisse Funktionalitäten, wie die Suche von Papers oder den Upload von pdf-Dokumenten, für die Verwaltung von Publikationen zur Verfügung. Den Austausch von Publikationen zwischen verschiedenen Benutzern erfolgt über das Erstellen von Gruppen, zu welchen man die verschiedenen Benutzer einladen kann. Alle Benutzer einer bestimmten Gruppe haben dann Zugriff zu den Publikationen, welche unter der gemeinsamen Gruppe abgelegt wurden.
+
+```{r mendeleyonline, echo=FALSE, hook_convert_odg=TRUE, fig_path="../odg", fig.align='center', out.width=720}
+#rmddochelper::use_odg_graphic(ps_path = "../odg/mendeleyonline.odg")
+knitr::include_graphics(path = "../odg/mendeleyonline.png")
+```
+ 
+ 
+### Offline Modus
+Die Verwendung der cloud-basierten Version setzt eine Internetverbindung voraus. Zudem sind die zur Cloud von Mendeley hochgeladenen pdf-Dateien im offline Modus nicht verfügbar. Die Arbeit im offline Modus ist über ein lokal installiertes Programm namens __Mendeley Desktop__ möglich. Dieses Programm kann von der Webseite von Mendeley heruntergeladen und anschliessend wie ein normales Programm installiert werden.  
