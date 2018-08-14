@@ -11,7 +11,7 @@ knitr::knit_hooks$set(hook_convert_odg = rmddochelper::hook_convert_odg)
 ```
 
 ## Erklärung
-Dieses Dokument enthält ein paar Hinweise für den Umgang mit der gemeinsamen Mendeley Literatur Datenbank.
+Dieses Dokument enthält ein paar Hinweise für den Umgang mit der gemeinsamen Mendeley Literatur Datenbank. Falls du schon vertraut bist mit Mendeley, kannst du gleich mit dem Abschnitt `Erfassen neuer Paper` weiterfahren.
 
 
 ## Einleitung
@@ -38,3 +38,41 @@ knitr::include_graphics(path = "../odg/mendeleyonline.png")
  
 ### Offline Modus
 Die Verwendung der cloud-basierten Version setzt eine Internetverbindung voraus. Zudem sind die zur Cloud von Mendeley hochgeladenen pdf-Dateien im offline Modus nicht verfügbar. Die Arbeit im offline Modus ist über ein lokal installiertes Programm namens __Mendeley Desktop__ möglich. Dieses Programm kann von der Webseite von Mendeley heruntergeladen und anschliessend wie ein normales Programm installiert werden.  
+
+Bei Starten von Mendeley Desktop wird zuerst Benutzername und Passwort abgefragt. Diese Anmeldung und somit der Start von Mendeley Desktop kann nur __online__ gemacht werden. Sobald Mendeley Desktop gestartet ist, funktioniert das Programm auch im offline Modus. Es stehen aber nur die während des online Modus heruntergeladenen pdf-Dateien zur Verfügung.
+
+```{r mendeleyofflinestart, echo=FALSE, hook_convert_odg=TRUE, fig_path="../odg", fig.align='center', out.width=720}
+#rmddochelper::use_odg_graphic(ps_path = "../odg/mendeleyofflinestart.odg")
+knitr::include_graphics(path = "../odg/mendeleyofflinestart.png")
+```
+
+Da __Mendeley Desktop__ mehr Funktionalitäten bietet bei der Verwaltung von Publikationen, ist es sicher empfehlenswert mit Mendeley Desktop zu arbeiten. Es ist aber empfehlenswert, bei Änderungen der lokal gehaltenen Daten die `Sync`-Funktion recht häufig zu betätigen, damit Konflikte zwischen der online Version der Daten und den lokal gespeicherten Daten zu vermeeiden.  
+
+
+## Erfassen neuer Paper
+In diesem Abschnitt wird das folgende Vorgehen für die Erfassung einer neuen Publikation empfohlen.
+
+* __Schritt 1__: Vor der Erfassung einer neuen Publikation, soll aufgrund des Autorindexes in der Ecke unten links überprüft werden, ob die Publikation schon erfasst wurde.
+
+* __Schritt 2__: Das Erfassen neuer Publikation kann auf verschiedene Arten geschehen. Hier sind nur paar Möglichkeiten aufgelisted. 
+    + per drag-and-drop des pdf-Files der Publikation in das Anzeigefeld der schon erfassten Publikationen
+    + über den Import von anderen Reference Manager Datenbanken, wie zum Beispiel .bib-files oder anderen.
+    + durch manuelle Erfassung der Detailinformationen einer Publikation
+    + das Suchfeld oben links (siehe screen-shot unten) erlaubt es auch nach neuen Publikationen zu suchen. Aufgrund von Erfahrungsberichten ist die Qualität der Suche nicht über alle Zweifel erhaben.
+    
+* __Schritt 3__: Ergänzung von Detailinformationen (rechtes Fenster im Mendeley Desktop, siehe screen-shot unten). Bei der Erfassung (Schritt 2) von neuen Publikationen kann es passieren, dass gewisse Informationen nicht richtig zugeordnet werden können. __Wichtige__ Detailinformationen sind
+    + Autor, über den Autor werden die `Citation Keys` erstellt. Diese sind wichtig für das Einbinden der Literaturreferenzen als Zitate in neuen Dokumenten.
+    + Titel
+    + Veröffentlichungsorgan oder Institution, wie z. Bsp., Name des Journals oder der Konferenz, Verleger eines Buches, usw.
+    + Keywords
+    + Tags
+    
+    
+    
+```{r mendeleypubenter, echo=FALSE, hook_convert_odg=TRUE, fig_path="../odg"}
+#rmddochelper::use_odg_graphic(ps_path = "../odg/mendeleypubenter.odg")
+knitr::include_graphics(path = "../odg/mendeleypubenter.png")
+```
+    
+
+  
