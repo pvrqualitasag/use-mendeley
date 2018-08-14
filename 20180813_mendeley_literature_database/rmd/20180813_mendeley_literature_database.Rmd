@@ -61,18 +61,19 @@ In diesem Abschnitt wird das folgende Vorgehen für die Erfassung einer neuen Pu
     + das Suchfeld oben links (siehe screen-shot unten) erlaubt es auch nach neuen Publikationen zu suchen. Aufgrund von Erfahrungsberichten ist die Qualität der Suche nicht über alle Zweifel erhaben.
     
 * __Schritt 3__: Ergänzung von Detailinformationen (rechtes Fenster im Mendeley Desktop, siehe screen-shot unten). Bei der Erfassung (Schritt 2) von neuen Publikationen kann es passieren, dass gewisse Informationen nicht richtig zugeordnet werden können. __Wichtige__ Detailinformationen sind
-    + Autor, über den Autor werden die `Citation Keys` erstellt. Diese sind wichtig für das Einbinden der Literaturreferenzen als Zitate in neuen Dokumenten.
-    + Titel
-    + Veröffentlichungsorgan oder Institution, wie z. Bsp., Name des Journals oder der Konferenz, Verleger eines Buches, usw.
-    + Keywords
-    + Tags
+    + __Autor__: anhand des Autors werden die `Citation Keys` erstellt. Diese sind wichtig für das Einbinden der Literaturreferenzen als Zitate in neuen Dokumenten. Leider ist das Format der Autoren nicht konsistent über die Journals hinweg. Somit werden diese beim automatischen Import auch nicht konsistent angelegt. Inkonsistenzen bei der Angabe von Autorennamen führen zu Duplikaten im Autorenindex. Mendeley schlägt das Format `Last Name, First Names` vor und falls mehrere Autoren zu einer Publikation gehören, dann sind diese durch einen Zeilenumbruch (Newline) zu trennen. 
+    + __Titel__
+    + __Veröffentlichungsorgan__ oder __Institution__, wie z. Bsp., Name des Journals oder der Konferenz, Verleger eines Buches, usw.
+    + __Author Keywords__: diese sind durch den Autor vorgegeben
+    + __Tags__: diese können selber vergeben werden und können zum Filtern verwendet werden.
     
     
-    
-```{r mendeleypubenter, echo=FALSE, hook_convert_odg=TRUE, fig_path="../odg"}
+```{r mendeleypubenter, echo=FALSE, hook_convert_odg=TRUE, fig_path="../odg", fig.align='center', out.width=720}
 #rmddochelper::use_odg_graphic(ps_path = "../odg/mendeleypubenter.odg")
 knitr::include_graphics(path = "../odg/mendeleypubenter.png")
 ```
     
 
-  
+## Bemerkungen zur Klassierung von Publikationen
+
+
