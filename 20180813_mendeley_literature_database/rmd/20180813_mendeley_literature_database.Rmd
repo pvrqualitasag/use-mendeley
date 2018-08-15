@@ -10,7 +10,20 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::knit_hooks$set(hook_convert_odg = rmddochelper::hook_convert_odg)
 ```
 
-## Erklärung
+
+## Zusammenfassung
+`tl;dnr` Für die Verwaltung einer gemeinsamen Datenbasis an Publikationen verwenden wir __Mendeley__. Mendeley kann in einer cloud-basierten Version über den Browser verwendet werden oder ist alternativ auch via das lokal installierte Programm Mendeley Desktop verfügbar. Die Desktop-Variante bietet mehr Funktionalitäten im Vergleich zur cloud-basierten Version. 
+
+Das Erfassen von neuen Publikationen in Mendeley soll gemäss den folgenden Schritten geschehen:
+
+1. Überprüfung ob eine Publikation schon früher erfasst wurde. Das kann recht einfach über den Autorenfilter gemacht werden.
+2. Erfassen der Publikation per drag-and-drop der pdf-Datei in das Hauptanzeigefeld
+3. Allenfalls ergänzen der Felder `Autor`, `Titel`, `Publikationsorgan`, `Author Keywords` und `Tags` in der Detailansicht der Publikation
+
+Ausser in Ausnahmefällen, wie zum Beispiel für Studentenprojekte (Masterarbeit oder spezielle Praktikaprojekte) verzichten wir darauf die Publikationen in Verzeichnisse oder Folders abzulegen. Für die Klassierung von Publikationen werden __Tags__ verwendet, welche den Publikationen zugeordnet werden. Diese Tags sollen möglichst spezifisch für die jeweilige Publikation sein. Gute Tags sind die Fachbereich-internen Projektbezeichnungen oder Schlüsselwörter, welche die Publikation möglichst präzise von den anderen abgrenzt. Allgemeine Bezeichnungen sollten nicht als Tags verwendet werden, da die Filterung nach den Tags in Mendeley recht eingeschränkt funktioniert.
+
+
+## Disclaimer
 Dieses Dokument enthält ein paar Hinweise für den Umgang mit der gemeinsamen Mendeley Literatur Datenbank. Falls du schon vertraut bist mit Mendeley, kannst du gleich mit dem Abschnitt `Erfassen neuer Paper` weiterfahren.
 
 
@@ -52,7 +65,7 @@ Da __Mendeley Desktop__ mehr Funktionalitäten bietet bei der Verwaltung von Pub
 ## Erfassen neuer Paper
 In diesem Abschnitt wird das folgende Vorgehen für die Erfassung einer neuen Publikation empfohlen.
 
-* __Schritt 1__: Vor der Erfassung einer neuen Publikation, soll aufgrund des Autorindexes in der Ecke unten links überprüft werden, ob die Publikation schon erfasst wurde.
+* __Schritt 1__: Vor der Erfassung einer neuen Publikation, soll aufgrund des Autorenfilters in der Ecke unten links (siehe nachfolgender Screen-Shot) überprüft werden, ob die Publikation schon erfasst wurde.
 
 * __Schritt 2__: Das Erfassen neuer Publikation kann auf verschiedene Arten geschehen. Hier sind nur paar Möglichkeiten aufgelisted. 
     + per drag-and-drop des pdf-Files der Publikation in das Anzeigefeld der schon erfassten Publikationen
@@ -61,19 +74,42 @@ In diesem Abschnitt wird das folgende Vorgehen für die Erfassung einer neuen Pu
     + das Suchfeld oben links (siehe screen-shot unten) erlaubt es auch nach neuen Publikationen zu suchen. Aufgrund von Erfahrungsberichten ist die Qualität der Suche nicht über alle Zweifel erhaben.
     
 * __Schritt 3__: Ergänzung von Detailinformationen (rechtes Fenster im Mendeley Desktop, siehe screen-shot unten). Bei der Erfassung (Schritt 2) von neuen Publikationen kann es passieren, dass gewisse Informationen nicht richtig zugeordnet werden können. __Wichtige__ Detailinformationen sind
-    + __Autor__: anhand des Autors werden die `Citation Keys` erstellt. Diese sind wichtig für das Einbinden der Literaturreferenzen als Zitate in neuen Dokumenten. Leider ist das Format der Autoren nicht konsistent über die Journals hinweg. Somit werden diese beim automatischen Import auch nicht konsistent angelegt. Inkonsistenzen bei der Angabe von Autorennamen führen zu Duplikaten im Autorenindex. Mendeley schlägt das Format `Last Name, First Names` vor und falls mehrere Autoren zu einer Publikation gehören, dann sind diese durch einen Zeilenumbruch (Newline) zu trennen. 
+    + __Autor__: anhand des Autors werden die `Citation Keys` erstellt. Diese sind wichtig für das Einbinden der Literaturreferenzen als Zitate in neuen Dokumenten. Leider ist das Format der Autoren nicht konsistent über die Journals hinweg. Somit werden diese beim automatischen Import auch nicht konsistent angelegt. Inkonsistenzen bei der Angabe von Autorennamen führen zu Duplikaten im Autorenfilter. Mendeley schlägt das Format `Last Name, First Names` vor und falls mehrere Autoren zu einer Publikation gehören, dann sind diese durch einen Zeilenumbruch (Newline) zu trennen. 
     + __Titel__
     + __Veröffentlichungsorgan__ oder __Institution__, wie z. Bsp., Name des Journals oder der Konferenz, Verleger eines Buches, usw.
     + __Author Keywords__: diese sind durch den Autor vorgegeben
     + __Tags__: diese können selber vergeben werden und können zum Filtern verwendet werden.
     
     
-```{r mendeleypubenter, echo=FALSE, hook_convert_odg=TRUE, fig_path="../odg", fig.align='center', out.width=720}
-#rmddochelper::use_odg_graphic(ps_path = "../odg/mendeleypubenter.odg")
+```{r mendeleypubenter, echo=FALSE, hook_convert_odg=TRUE, fig_path="../odg"}
+##rmddochelper::use_odg_graphic(ps_path = "../odg/mendeleypubenter.odg")
 knitr::include_graphics(path = "../odg/mendeleypubenter.png")
 ```
     
 
 ## Bemerkungen zur Klassierung von Publikationen
+Mendeley erlaubt es die Publikationen in __Folders__ abzulegen. Diese entsprechen Unterverzeichnissen in einem Filesystem. Mit wenigen Ausnahmen verzichten wir auf die Ablage der Publikationen in verschiedenen Folders da es praktisch unmöglich ist, sinnvolle Regeln zu erstellen, welche die Einteilung der Publikationen in die Folders eindeutig vorgibt. Eine Ausnahme bilden spezielle Projekte, wie Masterarbeiten von Studenten. In diesem Falle ist es eindeutig, dass alle Publikationen, welche vom Studenten gesammelt werden in einem speziellen Folder abgelegt werden. Alle anderen Publikationen werden einfach direkt unter dem Gruppennamen abgelegt.
+
+Als Alternative zur Einteilung mit Folders ist die Vergabe von __Tags__. Diese können frei vergeben werden und können in Mendeley als Filterkriterien verwendet werden. Mögliche Tags sind die Bezeichnungen der Projekte, welche im Fachbereich bearbeitet werden. Diese lauten:
+
+* 2orgcows
+* MethaGene
+* Aufzuchtverluste
+* SingleStep
+* ...
+
+Dabei können Publikationen auch zu mehreren Projekten zugewiesen werden. Abgesehen von den Projektnamen sollten Tags möglichst charakteristisch sein für eine bestimmte Publikation. Allgemeine Bezeichnungen wie 
+
+* `cattle` oder 
+* `breeding` oder 
+* `statistics` oder
+* andere allgemeine Begriffe, welche in sehr vielen Publikationen vorkommen, 
+
+sollten vermieden werden, da diese auf sehr viele Publikationen zutreffen und somit nicht spezifisch genug für eine bestimmte Publikation sind. Idealerweise sollen einer Publikation möglichst wenige Tags zugeordnet werden, da eine sequentielle Filterung über verschiedene Tags in Mendeley offenbar nicht möglich ist. 
 
 
+
+```{r, echo=FALSE, results='asis'}
+cat(rmddochelper::get_latest_change(ps_msg = "Letzte Änderung"))
+```
+ 
