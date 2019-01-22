@@ -1,0 +1,29 @@
+---
+title: "Using Mendeley Together With RMarkdown"
+author: "Peter von Rohr"
+date: "2019-01-17"
+output: html_notebook
+---
+
+## Disclaimer
+This notebook shows a few experiments how to use Mendeley reference manager with Rmarkdown documents.
+
+
+## Background
+Mendeley can export its literature data into `bib`-files. The user can choose between the two options of 
+
+1. storing all reference in one `bib`-file or
+2. creating a separate `bib`-file for each literature item.
+
+In both cases, the generated `bib`-files are stored in a given directory. This directory must be known in order to find the `bib`-files that we are going to use to generate the references in our Rmarkdown document.
+
+
+## Pre-requisites
+For the sake of this demo, we are just fixing the directory where all the `bib`-files are stored in a simple variable called `s_bib_dir`.
+
+```{r}
+s_bib_dir
+```
+
+
+## Functionality
