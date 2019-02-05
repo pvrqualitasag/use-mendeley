@@ -1,0 +1,28 @@
+---
+title: "Use Odg Graphics"
+author: "Peter von Rohr"
+date: "1/23/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(hook_convert_odg = rmddochelper::hook_convert_odg)
+```
+
+## Disclaimer
+This document is used to debug and verify certain unexpected behaviors of `rmddochelper::use_odg_graphics()`.
+
+
+## An Example
+When writing a Rmarkdown document and we want to include a diagram or a figure, we can use the function `rmddochelper::use_odg_graphics()` as follows.
+
+
+```{r firstodgfigure, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg"}
+#rmddochelper::use_odg_graphic(ps_path = "odg/firstodgfigure.odg")
+knitr::include_graphics(path = "odg/firstodgfigure.png")
+```
+
+Executing the above command inside of the RStudio document, should bring up a window of `LibreOffice Draw` which can be used to construct the figure.
+
+The problem could be fixed while updating `rmddochelper:::odg_draft()`.  
