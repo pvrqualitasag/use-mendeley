@@ -1,8 +1,10 @@
 ---
 title: "Using Mendeley Together With RMarkdown"
 author: "Peter von Rohr"
-date: "2019-01-17"
-output: html_notebook
+date: '2019-01-17'
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -113,24 +115,15 @@ MendeleyExporter <- R6::R6Class(classname = "MendeleyExporter",
                                   add = function(ps_new_ref){
                                     ### # obtain ps_ref from mendeley export dir
                                     vec_bib_new_ref <- private$get_bib_from_mendeley_export(ps_new_ref)
-                                    ### # read existing local references from s_local_bib_file
-                                    if (file.exists(private$s_local_bib_file)){
-                                      vec_local_bib <- RefManageR::ReadBib(file = private$s_local_bib_file)
-                                      ### # vec_bib_new_ref, if it does not exist yet
-                                      if (length(vec_local_bib[ps_new_ref]) == 0)
-                                        vec_local_bib <- c(vec_local_bib, vec_bib_new_ref)
-                                    } else {
-                                      vec_local_bib <- vec_bib_new_ref
-                                    }
-                                    ### # add new ref to local bib file
-                                    RefManageR::WriteBib(vec_local_bib, file = private$s_local_bib_file)
-                                                
+                                    ### # write the new version of the local bib file
+                                    private$write_local_bib(pvec_bib_new_ref = vec_bib_new_ref)
                                   }
                                 ),
                                 private = list(
                                   s_men_export_dir = NA,
                                   s_local_bib_file = NA,
                                   ### # private functions
+                                  ### # get the bib-record for ps_new_ref from mendeley export
                                   get_bib_from_mendeley_export = function(ps_new_ref){
                                     ### # check that we know were mendeley export dir is and that it exists
                                     if (!dir.exists(private$s_men_export_dir))
@@ -152,6 +145,21 @@ MendeleyExporter <- R6::R6Class(classname = "MendeleyExporter",
                                     if (length(s_new_ref) == 0)
                                       stop("[ERROR -- get_bib_from_mendeley_export] Cannot find bib entry for reference: ", ps_new_ref)
                                     return(s_new_ref)
+                                  },
+                                  ### # write new version of local bib-file with pvec_bib_new_ref in it, if it is not already included
+                                  write_local_bib = function(pvec_bib_new_ref){
+                                    ### # read existing local references from s_local_bib_file, if it exists already
+                                    if (file.exists(private$s_local_bib_file)){
+                                      vec_local_bib <- RefManageR::ReadBib(file = private$s_local_bib_file)
+                                      ### # add pvec_bib_new_ref, if it is not yet included
+                                      if ( length(vec_local_bib[names(pvec_bib_new_ref)]) == 0 )
+                                        vec_local_bib <- c(vec_local_bib, pvec_bib_new_ref)
+                                    } else {
+                                      vec_local_bib <- pvec_bib_new_ref
+                                    }
+                                    ### # add new ref to local bib file
+                                    RefManageR::WriteBib(vec_local_bib, file = private$s_local_bib_file)
+                                    return(invisible(TRUE))
                                   }
                                 ))
 ```
@@ -165,3 +173,17 @@ ref <- MendeleyExporter$new()
 ref$add("Meuwissen2001")
 ```
 
+In a second step the inline call to add the reference should be replaced by the string that includes the reference. To do this we need to know the path to the current Rmd file. One way of doing this is to use the `rstudioapi` package as shown below.
+
+```{r}
+if (rstudioapi::isAvailable()){
+  s_cur_path <- rstudioapi::getSourceEditorContext()$path
+} else {
+  s_cur_path <- here::here()
+  s_this_file <- rprojroot::thisfile()
+}
+cat("Path to current file: ", s_cur_path)
+cat("This file: ", s_this_file)
+```
+
+Using the `rstudioapi` works only when RStudio is running and when the command is executed from inside RStudio. When a document is knitted or rendered, RStudio is not available. In this case, we are using `rprojroot::thisfile()` which uses a mechanism in `knitr` to determine the path to the current Rmd document. 
