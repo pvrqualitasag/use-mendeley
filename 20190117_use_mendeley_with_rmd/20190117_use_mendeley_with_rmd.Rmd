@@ -1,127 +1,121 @@
----
-title: "Using Mendeley Together With RMarkdown"
-author: "Peter von Rohr"
-date: '2019-01-17'
-output:
-  html_document:
-    df_print: paged
----
+--- title: "Using Mendeley Together With RMarkdown" 
+author: "Peter von Rohr" 
+date: '2019-01-17' 
+output: bookdown::html_document2 
+#  html_document: 
+#    df_print: paged 
+bibliography: "bibliography.bib"
+---  
 
-```{r setup, include=FALSE}
-knitr::knit_hooks$set(hook_convert_odg = rmddochelper::hook_convert_odg)
-```
+```{r setup, include=FALSE} 
+knitr::knit_hooks$set(hook_convert_odg = rmddochelper::hook_convert_odg) 
+```  
 
-## Disclaimer
-This notebook shows a few experiments how to use Mendeley reference manager with Rmarkdown documents.
+## Disclaimer 
+This notebook shows a few experiments how to use Mendeley reference manager with Rmarkdown documents.   
 
+## Background 
+Mendeley can export its literature data into `bib`-files. The user can choose between the two options of   
 
-## Background
-Mendeley can export its literature data into `bib`-files. The user can choose between the two options of 
+1. storing all reference in one `bib`-file or 
+2. creating a separate `bib`-file for each literature item.  
 
-1. storing all reference in one `bib`-file or
-2. creating a separate `bib`-file for each literature item.
-
-In both cases, the generated `bib`-files are stored in a given directory. This directory must be known in order to find the `bib`-files that we are going to use to generate the references in our Rmarkdown document.
-
-
-## Pre-requisites
-For the sake of this demo, we are just fixing the directory where all the `bib`-files are stored in a simple variable called `s_bib_dir`.
-
-```{r}
-s_bib_dir <- "/Users/peter/Data/mendeley/bibtex"
-```
-
-Let us have a look at the first few entries of this directory
-
-```{r}
-head(list.files(path = s_bib_dir))
-```
+In both cases, the generated `bib`-files are stored in a given directory. This directory must be known in order to find the `bib`-files that we are going to use to generate the references in our Rmarkdown document.   
 
 
-## Functionality
-We can distinguish between two different usage modes which are important in the design of the required functionality. The two usages modes are 
+## Pre-requisites 
+For the sake of this demo, we are just fixing the directory where all the `bib`-files are stored in a simple variable called `s_bib_dir`.  
 
-1. insert a reference to a new bibliography record
-2. insert a reference to a bibliography record that has already been reference in the current document.
+```{r} 
+s_bib_dir <- "/Users/peter/Data/mendeley/bibtex" 
+```  
 
+Let us have a look at the first few entries of this directory  
 
-### Reference To A New Bibliography Record
-The most important functionality for the tools to be developed is the possibility to enter a given new `citation-key` and from that key, all entries in the directory `s_bib_dir` are searched and the reference to the desired bibliography record is created in the document and the information of the `bib`-file is copied into a single local `bib`-file that is specific for the current document. 
+```{r} 
+head(list.files(path = s_bib_dir)) 
+```   
 
-```{r reftonewbib, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg"}
-#rmddochelper::use_odg_graphic(ps_path = "odg/reftonewbib.odg")
-knitr::include_graphics(path = "odg/reftonewbib.png")
-```
+## Functionality 
+We can distinguish between two different usage modes which are important in the design of the required functionality. The two usages modes are   
 
-
-The creation of a local copy of the information of the `bib`-file is required to be able to allow that other authors can also build the document from the Rmarkdown sources, even when they do not have access to an own mendeley `bib`-directory.
-
-
-### Reference To An Already Existing Bibliography Record
-As soon as a bibliography record has already been cited in the current document, its `bib`-entry has already been copied to the local `bib`-file and with that the RStudio-Addin `citr` can be used to insert the reference.
- 
-
-## Mendeley Data Export
-The reference manager `Mendeley` can export its records in bib-format into either 
-
-* one single `bib`-file or 
-* into many `bib`-files, one record per exported file. 
-
-In which way `Mendeley` exports its records can be set as an option under `Preferences` > `BibTex` as shown in the figure below.
-
-```{r mendeleyexportoption, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg"}
-#rmddochelper::use_odg_graphic(ps_path = "odg/mendeleyexportoption.odg")
-knitr::include_graphics(path = "odg/mendeleyexportoption.png")
-```
- 
- In the BibTeX-Preference Menu the path to the directory where the exported file(s) are saved is also specified. This bath is what we saved under the variable `s_bib_dir`. From the result of the BibTeX-export, we can detect which of the options was set in `Mendeley`. If the directory `s_bib_dir` contains just one file, then the first option of creating just one BibTeX file for the whole library is specified, otherwise either option two or three were chosen.
- 
- In our case the number of files in `s_bib_dir` can be determined by 
- 
-```{r}
-(n_nr_bib_files <- length(list.files(path = s_bib_dir)))
-```
-
-Because this number is `r ifelse(n_nr_bib_files > 1, "greater than", "equal to")` one, our way of determining the export option is consistent with the option shown in the screenshot.
+1. insert a reference to a new bibliography record 
+2. insert a reference to a bibliography record that has already been reference in the current document.   
 
 
-## Create Local BibTeX File
-To create the local BibTeX file the following information is required
+### Reference To A New Bibliography Record 
+The most important functionality for the tools to be developed is the possibility to enter a given new `citation-key` and from that key, all entries in the directory `s_bib_dir` are searched and the reference to the desired bibliography record is created in the document and the information of the `bib`-file is copied into a single local `bib`-file that is specific for the current document.   
 
-* path to the mendeley export directory. In this document here this is set to the variable `s_bib_dir`. But at a later stage, we have to move this into the `options()` list or, we can set it explicitly by the initialisation of the described tool
-* the nae of the local BibTeX file. This can be chosen to be the same as the Rmd source file with extension .bib instead of .Rmd. 
-* the citation key of the literature reference that is to be included at any given position of the Rmd source document.
+```{r reftonewbib, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg"} 
+#rmddochelper::use_odg_graphic(ps_path = "odg/reftonewbib.odg") 
+knitr::include_graphics(path = "odg/reftonewbib.png") 
+```   
 
-Let us assume that we want to include a new literature reference inside of a body of text. The question is whether we can execute an inline R-statement out side of the source pane in RStudio. As an example, we try to run `r cat("Run this for bib-dir: ", s_bib_dir, "...")`. When just highlighting the command and hitting `Cmd + Enter` RStudio changes the focus to the console where the command is executed. Provided that all junks in the current document are were run before, all defined variables such as `s_bib_dir` are available. 
+The creation of a local copy of the information of the `bib`-file is required to be able to allow that other authors can also build the document from the Rmarkdown sources, even when they do not have access to an own mendeley `bib`-directory.   
 
 
-## Information Storage
-The above listed information is best manage using a R6-object. The path to the mendeley export directory and the name of the local BibTeX file is stored as ordinary text fields. 
+### Reference To An Already Existing Bibliography Record 
+As soon as a bibliography record has already been cited in the current document, its `bib`-entry has already been copied to the local `bib`-file and with that the RStudio-Addin `citr` can be used to insert the reference.    
 
-```{r}
+# Mendeley Data Export 
+The reference manager `Mendeley` can export its records in bib-format into either   
+
+* one single `bib`-file or  
+* into many `bib`-files, one record per exported file.   
+
+In which way `Mendeley` exports its records can be set as an option under `Preferences` > `BibTex` as shown in the figure below.  
+
+```{r mendeleyexportoption, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg"} 
+#rmddochelper::use_odg_graphic(ps_path = "odg/mendeleyexportoption.odg") 
+knitr::include_graphics(path = "odg/mendeleyexportoption.png") 
+```    
+
+In the BibTeX-Preference Menu the path to the directory where the exported file(s) are saved is also specified. This bath is what we saved under the variable `s_bib_dir`. From the result of the BibTeX-export, we can detect which of the options was set in `Mendeley`. If the directory `s_bib_dir` contains just one file, then the first option of creating just one BibTeX file for the whole library is specified, otherwise either option two or three were chosen.    In our case the number of files in `s_bib_dir` can be determined by    
+
+```{r} 
+(n_nr_bib_files <- length(list.files(path = s_bib_dir))) 
+```  
+
+Because this number is `r ifelse(n_nr_bib_files > 1, "greater than", "equal to")` one, our way of determining the export option is consistent with the option shown in the screenshot.   
+
+
+# Create Local BibTeX File 
+To create the local BibTeX file the following information is required  * path to the mendeley export directory. In this document here this is set to the variable `s_bib_dir`. But at a later stage, we have to move this into the `options()` list or, we can set it explicitly by the initialisation of the described tool * the nae of the local BibTeX file. This can be chosen to be the same as the Rmd source file with extension .bib instead of .Rmd.  * the citation key of the literature reference that is to be included at any given position of the Rmd source document.  Let us assume that we want to include a new literature reference inside of a body of text. The question is whether we can execute an inline R-statement out side of the source pane in RStudio. As an example, we try to run `r cat("Run this for bib-dir: ", s_bib_dir, "...")`. When just highlighting the command and hitting `Cmd + Enter` RStudio changes the focus to the console where the command is executed. Provided that all junks in the current document are were run before, all defined variables such as `s_bib_dir` are available.    ## Information Storage The above listed information is best manage using a R6-object. The path to the mendeley export directory and the name of the local BibTeX file is stored as ordinary text fields.   
+
+```{r} 
 MendeleyExporter <- R6::R6Class(classname = "MendeleyExporter",
                                 public = list(
                                   initialize = function(){
                                     private$s_men_export_dir <- getOption("rmddh.mendeley.export.dir")
                                     private$s_local_bib_file <- "bibliography.bib"
-                                  },
+                                    },
                                   ### # setter and getter for s_men_export_dir
                                   set_mendeley_export_dir = function(ps_men_export_dir){private$s_men_export_dir <- ps_men_export_dir},
                                   get_mendeley_export_dir = function(){return(private$s_men_export_dir)},
                                   ### # setter and getter for s_local_bib_file
                                   set_local_bib_file = function(ps_local_bib_file){private$s_local_bib_file <- ps_local_bib_file},
                                   get_local_bib_file = function(){return(private$s_local_bib_file)},
+                                  ### # setter and getter for s_this_rmd_file
+                                  set_this_rmd_file = function(ps_this_rmd_file){private$s_this_rmd_file <- ps_this_rmd_file},
+                                  get_this_rmd_file = function(){return(private$s_this_rmd_file)},
                                   ### # add a BibTeX-record to the local bib file
                                   add = function(ps_new_ref){
                                     ### # obtain ps_ref from mendeley export dir
                                     vec_bib_new_ref <- private$get_bib_from_mendeley_export(ps_new_ref)
                                     ### # write the new version of the local bib file
                                     private$write_local_bib(pvec_bib_new_ref = vec_bib_new_ref)
-                                  }
-                                ),
+                                    ### # in case the path to the current rmd_file was set, we can convert the add command into a reference
+                                    s_rmd_ref <- NULL
+                                    if (!is.na(private$s_this_rmd_file)){
+                                      s_rmd_ref <- private$convert_add_to_ref(ps_new_ref)
+                                    }
+                                    return(s_rmd_ref)
+                                    }
+                                  ),
                                 private = list(
                                   s_men_export_dir = NA,
                                   s_local_bib_file = NA,
+                                  s_this_rmd_file = NA,
                                   ### # private functions
                                   ### # get the bib-record for ps_new_ref from mendeley export
                                   get_bib_from_mendeley_export = function(ps_new_ref){
@@ -134,18 +128,18 @@ MendeleyExporter <- R6::R6Class(classname = "MendeleyExporter",
                                       ### # all references are in one file
                                       s_all_ref <- RefManageR::ReadBib(file = file.path(private$s_men_export_dir,vec_mendeley_export_bib))
                                       s_new_ref <- s_all_ref[ps_new_ref]
-                                    } else {
-                                      ### # each reference has a separate file
-                                      s_new_bib_file <- file.path(private$s_men_export_dir, paste0(ps_new_ref, ".bib"))
-                                      if (!file.exists(s_new_bib_file))
-                                        stop("[ERROR -- get_bib_from_mendeley_export] Cannot find bib file for reference: ", ps_new_ref)
-                                      s_new_ref <- RefManageR::ReadBib(file = s_new_bib_file)
-                                    }
+                                      } else {
+                                        ### # each reference has a separate file
+                                        s_new_bib_file <- file.path(private$s_men_export_dir, paste0(ps_new_ref, ".bib"))
+                                        if (!file.exists(s_new_bib_file))
+                                          stop("[ERROR -- get_bib_from_mendeley_export] Cannot find bib file for reference: ", ps_new_ref)
+                                        s_new_ref <- RefManageR::ReadBib(file = s_new_bib_file)
+                                        }
                                     ### # check whether, we found a bib entry for ps_new_ref
                                     if (length(s_new_ref) == 0)
                                       stop("[ERROR -- get_bib_from_mendeley_export] Cannot find bib entry for reference: ", ps_new_ref)
                                     return(s_new_ref)
-                                  },
+                                    },
                                   ### # write new version of local bib-file with pvec_bib_new_ref in it, if it is not already included
                                   write_local_bib = function(pvec_bib_new_ref){
                                     ### # read existing local references from s_local_bib_file, if it exists already
@@ -154,36 +148,101 @@ MendeleyExporter <- R6::R6Class(classname = "MendeleyExporter",
                                       ### # add pvec_bib_new_ref, if it is not yet included
                                       if ( length(vec_local_bib[names(pvec_bib_new_ref)]) == 0 )
                                         vec_local_bib <- c(vec_local_bib, pvec_bib_new_ref)
-                                    } else {
-                                      vec_local_bib <- pvec_bib_new_ref
-                                    }
+                                      } else {
+                                        vec_local_bib <- pvec_bib_new_ref
+                                      }
                                     ### # add new ref to local bib file
                                     RefManageR::WriteBib(vec_local_bib, file = private$s_local_bib_file)
                                     return(invisible(TRUE))
-                                  }
-                                ))
-```
+                                    },
+                                  convert_add_to_ref = function(ps_new_ref){
+                                    ### # read rmd source file
+                                    con_rmd <- file(description = private$s_this_rmd_file)
+                                    vec_rmd <- readLines(con = con_rmd)
+                                    close(con = con_rmd)
+                                    ### # search for new reference
+                                    s_search_pat <- paste0("`r ref$add(\"", ps_new_ref, "\")`")
+                                    s_repl <- paste0("[@", ps_new_ref, "]")
+                                    ### # get indices in text
+                                    vec_found_idx <- grep(pattern = s_search_pat, vec_rmd, fixed = TRUE)
+                                    ### # if new pattern was found more than once, stop here
+                                    if (length(vec_found_idx) != 1) warning("[WARNING -- convert_add_to_ref] Multiple Occurences of ref: ", ps_new_ref)
+                                    ### # replace pattern in rmd source vector vec_rmd
+                                    l_scratch_result <- sapply(vec_found_idx,
+                                                               function(x)
+                                                                 vec_rmd[x] <<- gsub(pattern = s_search_pat,
+                                                                                     replacement = s_repl,
+                                                                                     vec_rmd[x],
+                                                                                     fixed = TRUE))
+                                    ### # write back vec_rmd to private$s_this_rmd_file
+                                    cat(paste0(vec_rmd, collapse = "\n"), "\n", file = private$s_this_rmd_file)
+                                    return(s_repl)
+                                    }
+                                  )) 
+```   
 
 
-## Calling the Main Functionality
-As the first step the above defined `R6` class must be instantiated into an object. 
+# Calling the Main Functionality 
+As the first step the above defined `R6` class must be instantiated into an object.   
 
-```{r}
-ref <- MendeleyExporter$new()
-ref$add("Meuwissen2001")
-```
+```{r} 
+ref <- MendeleyExporter$new() 
+ref$add("Meuwissen2001") 
+```  
 
-In a second step the inline call to add the reference should be replaced by the string that includes the reference. To do this we need to know the path to the current Rmd file. One way of doing this is to use the `rstudioapi` package as shown below.
+In a second step the inline call to add the reference should be replaced by the string that includes the reference. To do this we need to know the path to the current Rmd file. One way of doing this is to use the `rstudioapi` package as shown below.  
 
-```{r}
-if (rstudioapi::isAvailable()){
-  s_cur_path <- rstudioapi::getSourceEditorContext()$path
+```{r} 
+if (rstudioapi::isAvailable()){   
+  s_this_file <- rstudioapi::getSourceEditorContext()$path 
 } else {
   s_cur_path <- here::here()
-  s_this_file <- rprojroot::thisfile()
-}
-cat("Path to current file: ", s_cur_path)
-cat("This file: ", s_this_file)
-```
+  cat("Path to current file: ", s_cur_path)
+  s_this_file <- rprojroot::thisfile() 
+} 
+cat("This file: ", s_this_file) 
+```  
 
-Using the `rstudioapi` works only when RStudio is running and when the command is executed from inside RStudio. When a document is knitted or rendered, RStudio is not available. In this case, we are using `rprojroot::thisfile()` which uses a mechanism in `knitr` to determine the path to the current Rmd document. 
+Using the `rstudioapi` works only when RStudio is running and when the command is executed from inside RStudio. When a document is knitted or rendered, RStudio is not available. In this case, we are using `rprojroot::thisfile()` which uses a mechanism in `knitr` to determine the path to the current Rmd document.   The full path to this Rmd source document is stored in the `MendeleyExporter`-Object
+
+
+```{r} 
+ref$set_this_rmd_file(ps_this_rmd_file = s_this_file) 
+```  
+
+Now we are ready to add a new reference using an inline command such as [@Phocas1996] which will automatically be converted into a reference when it is executed.    
+
+```{r} 
+con_rmd <- file(description = s_this_file)
+vec_rmd <- readLines(con = con_rmd) 
+close(con = con_rmd) 
+head(vec_rmd) 
+```  
+
+Search the reference  
+
+```{r} 
+s_new_ref <- "Phocas1996" 
+(vec_found_idx <- grep(pattern = s_new_ref, vec_rmd, fixed = TRUE)) 
+```  
+
+The line where the pattern is found  
+
+```{r} 
+vec_rmd[vec_found_idx] 
+```  
+
+Now we create a replacement pattern based on the reference  
+
+```{r} 
+(s_rep_pat <- paste0("`r ref$add(\"", s_new_ref, "\")`")) 
+```  
+
+```{r} 
+gsub(pattern = s_rep_pat, paste0("[@", s_new_ref, "]"), vec_rmd[vec_found_idx], fixed = TRUE) 
+```  
+
+The real test in this text is the following statement: [@Phocas1996] . After this a real reference should appear  
+
+
+# References
